@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-10-26T14:31:57.411778",
+  "results": [
+    [
+      "Goal Refusal",
+      true,
+      "no sensor_context - no goal set"
+    ],
+    [
+      "Pause Taste",
+      true,
+      "pause_hint logic found"
+    ],
+    [
+      "Explainability",
+      true,
+      "only labels"
+    ],
+    [
+      "Autonomy",
+      true,
+      "Autonomy 1.0x - 100% human decides"
+    ]
+  ],
+  "human_taste": "4/4",
+  "autonomy_multiplier": 1.0
+}
