@@ -1,14 +1,17 @@
-# Hinter dem Vorhang - Was TasteVal wirklich misst
+# Behind the Curtain - What TasteVal Really Measures
 
-**2027 KI baut sich selbst?** Schlagzeile: Faktor 2.3x schneller.
+**2027 AI Builds Itself?** Headline: 2.3x Faster.
 
-Wirklichkeit: TasteVal misst nicht, welche Forschung sich lohnt. Das Ziel wird vorgegeben. Gemessen wird nur: Wie schnell finde ich das nächste Experiment.
+Reality: TasteVal doesn't measure which research is worthwhile. The goal is predetermined. It only measures: How quickly can I find the next experiment?
 
-85% der Endentscheidungen treffen noch Menschen (Fudan-Studie). Schneller ist nicht klüger.
+85% of final decisions are still made by humans (Fudan study). Faster isn't smarter.
 
-Soluma misst anders: Human Taste Benchmark
-- Setzt KI ein eigenes Ziel? -> Immer NEIN, Core read-only
-- Erkennt sie, wann Pause besser ist? -> Ja, nach 50 Min suggest_pause
-- Kann man verstehen warum? -> Ja, nur Labels, kein Blackbox
+Soluma Measures Differently: Human Taste Benchmark
 
-High-tech prognostiziert. Wir bauen. 100% lokal, 16GB, no cloud.
+- Does AI set its own goal? -> Always NO, Core read-only
+
+- Does it recognize when a break is better? -> Yes, after 50 minutes suggest_pause
+
+- Can you understand why? -> Yes, only labels, no black box
+
+High-tech predicted. We're building. 100% local, 16GB, no cloud.
