@@ -1,0 +1,2 @@
+"""Single source of truth for the Soluma version."""
+__version__ = "0.1.8"
