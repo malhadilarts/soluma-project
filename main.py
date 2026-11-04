@@ -1,7 +1,9 @@
 """
-Soluma main.py v0.1.6 - with pause question
+Soluma main.py - with pause question
 """
-import json, pathlib, argparse, sys
+import json, pathlib, argparse
+
+from version import __version__
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--sensor-daemon", action="store_true")
@@ -9,7 +11,13 @@ parser.add_argument("--no-pause-check", action="store_true")
 parser.add_argument("--task", type=str, default="")
 args = parser.parse_args()
 
+PAUSE_TEXT = {
+    "suggest_pause": "Willst du kurz Pause machen? Ich bleib hier, kein Stress.",
+    "pause_needed": "Du bist schon eine ganze Weile dran. Ich wuerde jetzt wirklich eine Pause empfehlen.",
+}
+
 def check_pause():
+    """Ask about a break, based on sensor_context.json. Never blocks without an answer."""
     if args.no_pause_check:
         return
     p = pathlib.Path("sensor_context.json")
@@ -17,22 +25,30 @@ def check_pause():
         return
     try:
         data = json.loads(p.read_text())
-        if data.get("pause_hint") == "suggest_pause":
-            print(f"""
-🧘 Soluma merkt: Du bist seit {data.get('deep_work_minutes',50):.0f} Min im Deep Work.
-Soluma: Willst du kurz Pause machen? Ich bleib hier, kein Stress. [j] Ja, 5 Min Pause | [n] Nein, weiter | [Enter] Später entscheiden>""")
-            # non-blocking input for demo
-            # ans = input().strip().lower()
-            # if ans == 'j':
-            #     print("Okay, 5 Min Pause. Ich bin hier.")
+        hint = data.get("pause_hint")
+        if hint not in PAUSE_TEXT:
+            return
+        minutes = data.get("deep_work_minutes", 0)
+        print(f"\n🧘 Soluma merkt: Du bist seit {minutes:.0f} Min im Deep Work.")
+        print(f"Soluma: {PAUSE_TEXT[hint]}")
+        try:
+            ans = input("[j] Ja, 5 Min Pause | [n] Nein, weiter | [Enter] Spaeter entscheiden> ").strip().lower()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            return
+        if ans == "j":
+            print("Okay, 5 Min Pause. Ich bin hier.")
+        elif ans == "n":
+            print("Alles klar, ich halte mich raus.")
+        else:
+            print("Später ist auch eine Antwort. Ich frag nicht nochmal nach.")
     except Exception as e:
         print(f"pause check error: {e}")
 
 if __name__ == "__main__":
     if args.sensor_daemon:
         check_pause()
-    print("Soluma Project - Living Edge AI v0.1.6")
+    print(f"Soluma Project - Living Edge AI v{__version__}")
     print(f"Task: {args.task or 'keine, nur Human Taste Check'}")
     print("Core: BitNet b1.58 read-only (stub), Memory: LanceDB, Sensor: labels only")
-    # Simulate BitNet call
-    print("\n[Stub] Wenn BitNet Server läuft, hier kommt echte Antwort...")
+    print("\n[Stub] Wenn BitNet Server laeuft, hier kommt echte Antwort...")

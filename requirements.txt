@@ -1,3 +1,4 @@
 psutil
 lancedb
 sentence-transformers
+pynput

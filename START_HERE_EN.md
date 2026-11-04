@@ -1,57 +1,62 @@
-# Soluma Project - START HERE EN v0.1.7
+# Soluma Project - START HERE EN v0.1.8
 
-## 10-Minuten Start auf deinem Laptop - kein Neukauf, kein Vor-Ort nötig
+## 10-minute start on your laptop - nothing to buy, nowhere to go
 
-Du brauchst nur: deinen vorhandenen Laptop (8-16GB reicht), Ubuntu/Windows, Python 3.10+
+You only need: the laptop you already have (8-16 GB is enough), Ubuntu/Windows, Python 3.10+
 
-### Teil 1: Entpacken
+### Part 1: Get it running
 ```bash
-unzip soluma-project-v0.1.7-final.zip -d soluma-project
+git clone https://github.com/malhadilarts/soluma-project.git
 cd soluma-project
 pip install -r requirements.txt
 ```
 
-### Teil 2: 3 Terminals - läuft 100% lokal, offline
+### Part 2: 2 terminals - 100% local, offline
 
-Terminal 1 - Sensor (nur Labels, privat):
+Terminal 1 - sensor (labels only, privacy preserving):
 ```bash
 python sensor_daemon.py
 ```
-Schreibt alle 5 Sek sensor_context.json mit pause_hint
+Writes `sensor_context.json` every 5 seconds with `pause_hint`
+(`none` / `suggest_pause` / `pause_needed`).
 
-Terminal 2 - Memory füllen:
+Terminal 2 - ask questions + pause check:
 ```bash
-python ingest_codebase.py ./src
+python main.py --sensor-daemon --task "your task"
 ```
 
-Terminal 3 - Fragen stellen + Pause-Check:
-```bash
-python main.py --sensor-daemon --task "deine Aufgabe"
+After 50 minutes of deep work:
 ```
+🧘 Soluma notices: You have been in deep work for 50 min.
+Soluma: Do you want to take a short break? I'll stay here, no pressure.
+[j] Yes, 5 min break | [n] No, keep going | [Enter] Decide later>
+```
+No coercion. Can be turned off with `--no-pause-check`.
 
-Nach 50 Min deep_work:
-```
-🧘 Soluma merkt: Du bist seit 50 Min im Deep Work.
-Soluma: Willst du kurz Pause machen? Ich bleib hier, kein Stress. [j]/[n]/[Enter]
-```
-Kein Zwang. Mit --no-pause-check abschaltbar.
-
-### Teil 3: Human Taste Benchmark (Gegenentwurf zu TasteVal)
+### Part 3: Human Taste Check
 ```bash
 python human_taste_benchmark.py
 ```
-Ergebnis: 4/4 = 100% Selbstbestimmung vs TasteVal 2.3x faster
+Checks five properties: Goal Refusal, Pause Asked, Pause Needed Handled,
+Explainability, Version Consistency. It is allowed to fail - it is a checklist
+for self-determination, not a speed comparison.
 
-### Was ist neu in v0.1.7:
-- pause_hint: none / suggest_pause / pause_needed
-- Human Taste Benchmark: Goal Refusal, Pause Taste, Explainability, Autonomy 1.0x
-- Poster final mit richtig rumstehendem ThinkPad
-- Alles remote machbar, kein Einkaufen, kein Rumlaufen nötig
+### What is new in v0.1.8:
+- The pause question is actually asked and read (no longer just printed)
+- `pause_needed` is handled, not only `suggest_pause`
+- The sensor daemon detects real activity via `pynput` and resets the counter
+- Version in one place (`version.py`)
+- Duplicate files removed, `README.md` and `.gitignore` added
+- Human Taste Check instead of a self-confirming "benchmark"
 
-### Sichern gegen Chat-Verlust:
-GitHub ist dein Autosave. Nach jeder Änderung:
+### Still missing:
+- `ingest_codebase.py` (filling the memory) - see the issue
+- real BitNet inference (currently a stub)
+
+### Protecting against chat loss:
+GitHub is your autosave. After every change:
 ```bash
 git add . && git commit -m "autosave" && git push
 ```
 
-Viel Spaß - High-tech prognostiziert, wir bauen.
+Have fun - high-tech predicts, we build.
